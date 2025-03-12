@@ -1,6 +1,6 @@
 
-import 'package:app_here/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:qualoan/constants/app_colors.dart';
 
 import 'custom_text.dart';
 class CustomButton extends StatelessWidget {
@@ -8,6 +8,7 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Gradient? gradient;
   final String textName;
+  final Widget? prefixIcon;
   final Color color;
   final Color? textColor;
   final FontWeight?fontWeight;
@@ -16,6 +17,7 @@ class CustomButton extends StatelessWidget {
       {super.key,
       required this.onPressed,
       this.child,
+      this.prefixIcon,
       this.fontSize,
       this.fontWeight,
       this.textColor,
@@ -36,13 +38,14 @@ class CustomButton extends StatelessWidget {
               shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7.0),
-                      side: const BorderSide(
-                          width: 1,
-                          color: AppColors.green
-                          )
+                      // side: const BorderSide(
+                      //     width: 1,
+                      //     color: AppColors.orangeLogoColor
+                      //     )
                   )
                           )),
           onPressed: onPressed,
+          
           child: CustomText(
             textName: textName,
             fontSize: fontSize,

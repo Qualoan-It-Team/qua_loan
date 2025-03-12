@@ -10,6 +10,7 @@ class CustomText extends StatelessWidget{
   FontStyle?fontStyle;
   TextAlign?textAlign;
   int?maxLines;
+  final TextDecoration?textDecoration;
   bool?softWrap;
   double? height;
   TextDecoration?decoration;
@@ -27,7 +28,8 @@ class CustomText extends StatelessWidget{
     this.softWrap,
     this.textAlign,
     this.fontStyle,
-    this.textColor, 
+    this.textColor,
+    this.textDecoration, 
   });
 
   @override

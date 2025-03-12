@@ -38,4 +38,27 @@ class SharedPrefs {
   static clearSession() async {
     await instance.clear();
   }
+//   Future<void> saveToken(String token) async {
+//   final prefs = await SharedPreferences.getInstance();
+//   await prefs.setString('token', token);
+// }
+static const String _tokenKey = 'token';
+
+  // Save the token
+  Future<void> saveToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_tokenKey, token);
+  }
+
+  // Retrieve the token
+  // Future<String?> getToken() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString(_tokenKey);
+  // }
+
+  // Remove the token (if needed)
+  Future<void> removeToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_tokenKey);
+  }
 }

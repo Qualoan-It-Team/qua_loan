@@ -1,5 +1,5 @@
-import 'package:app_here/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:qualoan/constants/app_colors.dart';
 
 class TopIndicator extends Decoration {
   @override
@@ -12,9 +12,9 @@ class _TopIndicatorBox extends BoxPainter {
   void paint(Canvas canvas, Offset offset, ImageConfiguration cfg) {
     Paint _paint = Paint()
       // ..color = AppColors.logoRedColor
-      ..color = AppColors.green
+      ..color = AppColors.orangeLogoColor
       // const Color.fromARGB(255, 191, 190, 190)
-      ..strokeWidth = 5
+      ..strokeWidth = 4
       ..isAntiAlias = true;
     canvas.drawLine(offset, Offset(cfg.size!.width + offset.dx, 0), _paint);
   }

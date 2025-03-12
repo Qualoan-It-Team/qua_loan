@@ -1,4 +1,4 @@
-package com.app.salary4sure
+package com.app.qualoan
 
 import io.flutter.embedding.android.FlutterActivity
 

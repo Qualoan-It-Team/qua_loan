@@ -9,7 +9,7 @@ abstract class ApiService {
   // Future<Response> postRequest({required String endPoint,required dynamic body,String header});
 
   ///abstract http getRequest method
-  Future<Response> getRequest({required String endPoint});
+  Future<Response> getRequestWithToken({required String endPoint});
 
   ///abstract http deleteRequest method
   Future<Response> deleteRequest({required String endPoint});
