@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:qualoan/constants/app_colors.dart';
 import 'package:qualoan/constants/app_strings.dart';
+import 'package:qualoan/network/end_points.dart';
 import 'package:qualoan/reusable_widgets/custom_snackbar.dart';
 import 'package:qualoan/view/dashboard/dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -115,7 +116,7 @@ class PersonalInformationController extends GetxController {
     isLoading = true;
     update();
     try {
-      const String url = 'https://api.qualoan.com/api/user/getProfileDetails';
+      String url = EndPoints.localHostGetProfileDetails;
       String? token = await getToken();
       final response = await http.get(
         Uri.parse(url),
@@ -157,9 +158,10 @@ class PersonalInformationController extends GetxController {
     isLoadingButton = true;
     update();
     String? token = await getToken();
+    String url =  EndPoints.localHostPersonalInfo;
     // String formattedDob = DateFormat('yyyy-MM-dd').format(DateTime.parse(dobController.text));
     final response = await http.patch(
-      Uri.parse('https://api.qualoan.com/api/user/personalInfo'),
+      Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

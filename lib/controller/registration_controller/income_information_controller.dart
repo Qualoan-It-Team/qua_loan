@@ -8,6 +8,7 @@ import 'package:qualoan/constants/app_colors.dart';
 import 'package:qualoan/constants/app_strings.dart';
 import 'package:qualoan/controller/dashboard_controller/dashboard_controller.dart';
 import 'package:qualoan/controller/loan_application/view_profile_controller.dart';
+import 'package:qualoan/network/end_points.dart';
 import 'package:qualoan/view/dashboard/dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -99,7 +100,7 @@ Future<String?> getToken() async {
   }
   //income details api
   Future<void> submitIncomeDetails() async {
-    const url = 'https://api.qualoan.com/api/user/addIncomeDetails';
+    var url = EndPoints.localHostAddIncomeDetails;
     String? token = await getToken();
     final headers = {
       'Content-Type': 'application/json',
@@ -138,7 +139,7 @@ Future<String?> getToken() async {
     } catch (e) {
       isLoading=false;
       update();
-      Get.snackbar('Error', 'An error occurred: $e',backgroundColor: AppColors.logoRedColor,colorText: AppColors.white);
+      Get.snackbar(AppStrings.error, '${AppStrings.errorOccured} $e',backgroundColor: AppColors.logoRedColor,colorText: AppColors.white);
     }
   }
 

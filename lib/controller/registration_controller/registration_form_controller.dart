@@ -8,6 +8,7 @@ import 'package:qualoan/constants/app_strings.dart';
 import 'package:qualoan/model/response_model/get_user_details_response.dart';
 import 'package:qualoan/network/api/api_clients.dart';
 import 'package:qualoan/network/end_points.dart';
+import 'package:qualoan/reusable_widgets/custom_snackbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationFormController extends GetxController {
@@ -66,8 +67,8 @@ Future<String?> getToken() async {
 
 //Pan Verify apiMethod
   Future<void> verifyPan() async {
-    final String url =
-        'https://api.qualoan.com/api/user/verifyPAN/${panController.text}';
+    final String url ='${EndPoints.localHostVerifyPan}${panController.text}';
+        // 'https://api.qualoan.com/api/user/verifyPAN/${panController.text}';
         String? token = await getToken();
     isLoading = true;
     update();
@@ -82,7 +83,6 @@ Future<String?> getToken() async {
       );
       isLoading = false;
       update();
-      print("response pan===${response.body}");
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);
         Get.back();
@@ -102,7 +102,7 @@ Future<String?> getToken() async {
             errorMessage);
       }
     } catch (e) {
-      errorMessage = 'An error occurred: $e';
+      errorMessage = '${AppStrings.errorOccured} $e';
     } finally {
       isLoading = false;
       update();
@@ -111,7 +111,7 @@ Future<String?> getToken() async {
 
   //this method for enable disable condition 
   Future<void> fetchDashboardDetails() async {
-  const String url = 'https://api.qualoan.com/api/user/getDashboardDetails';
+  String url = EndPoints.localHostGetDashboardDetails;
   String? token = await getToken();
   isLoading = true;
   update();
@@ -152,7 +152,7 @@ Future<String?> getToken() async {
             errorMessage);
     }
   } catch (e) {
-    errorMessage = 'An error occurred: $e';
+    errorMessage = '${AppStrings.errorOccured} $e';
      Get.snackbar(
             backgroundColor: AppColors.logoRedColor,
             colorText: AppColors.white,
@@ -182,6 +182,7 @@ Future<void> fetchUserProfile() async {
         update();
       } 
     } catch (e) {
+      showCustomSnackbar("Exception ", "$e" , backgroundColor: AppColors.logoRedColor,textColor: AppColors.white);
     }
   }
 }

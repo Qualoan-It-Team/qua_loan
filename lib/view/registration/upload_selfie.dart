@@ -221,7 +221,7 @@ class _UploadSelfieScreenState extends State<UploadSelfieScreen>
                                 child: AnimatedOpacity(
                                   opacity: _fadeAnimation.value,
                                   duration: const Duration(milliseconds: 500),
-                                  child:_controller.isLoading?Center(child: CircularProgressIndicator(color: AppColors.white,),): CustomButton(
+                                  child:_controller.isLoading? const Center(child: CircularProgressIndicator(color: AppColors.white,),): CustomButton(
                                     onPressed: () {
                                       _controller.uploadProfilePicture();
                                     },

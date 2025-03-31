@@ -11,6 +11,8 @@ import 'package:qualoan/reusable_widgets/custom_success_dialog.dart';
 import 'package:qualoan/routes/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../network/end_points.dart';
+
 class BankDetailsController extends GetxController {
   final TextEditingController accountNumberController = TextEditingController();
   final TextEditingController confirmNumberController = TextEditingController();
@@ -95,7 +97,7 @@ class BankDetailsController extends GetxController {
   }
 
   bool isValidAccountNumber(String accountNumber) {
-    final RegExp accountNumberRegExp = RegExp(r'^\d{12,16}$');
+    final RegExp accountNumberRegExp = RegExp(r'^\d{10,20}$');
     return accountNumberRegExp.hasMatch(accountNumber);
   }
 //token
@@ -151,7 +153,8 @@ Future<String?> getToken() async {
     );
     return;
   }
-    const String url ='https://api.qualoan.com/api/user/disbursalBankDetails';
+
+    String url = EndPoints.localHostDisbursalBankDetails;
     String? token = await getToken();
 
     final Map<String, dynamic> requestBody = {
@@ -161,10 +164,12 @@ Future<String?> getToken() async {
       "confirmAccountNumber": accountNumberController.text.trim(),
       "ifscCode": ifscCodeController.text.trim(),
       "accountType": selecteAccountType,
-      "beneficiaryName": selecteAccountType,
+      "beneficiaryName": accountHolderNameController.text,
     };
-
+    isLoading = true;
+    update();
     try {
+
       final response = await http.patch(
         Uri.parse(url),
         headers: {
@@ -173,6 +178,8 @@ Future<String?> getToken() async {
         },
         body: json.encode(requestBody),
       );
+      isLoading = false;
+    update();
       if (response.statusCode == 200) {
          Future.delayed(Duration.zero, () {
       CustomSuccessDialog.showDialog(
@@ -200,6 +207,8 @@ Future<String?> getToken() async {
         );
       }
     } catch (e) {
+      isLoading = false;
+    update();
       Get.snackbar(
         'Error',
         'An error occurred: $e',

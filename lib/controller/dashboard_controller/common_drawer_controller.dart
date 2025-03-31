@@ -44,7 +44,6 @@ Future<void> openWebPage(String url) async {
   try {
      var response = await apiClient.getRequestWithToken( endPoint: EndPoints.localHostGetUserProfileUrl);
    var userResponse = jsonDecode(response.body);
-   print("profile response ${response.body}");
     if (response.statusCode == 200) {
       var getUserProfileResponse = GetUserProfileResponse.fromJson(userResponse);
       if (getUserProfileResponse.success) {

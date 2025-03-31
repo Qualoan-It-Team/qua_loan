@@ -6,6 +6,7 @@ class AppStrings {
   static const String ok ="OK";
   static const String emptyString ='';
   static const String mobileNumberRequired ="Mobile number is required";
+  static const String aadhaarNumberRequired ="Aadhaar Number is required";
   static const String mobileNumber10DigitText ="Mobile number must be exactly 10 digits";
   static const String aadhaarNumber12DigitText ="Aadhaar number must be exactly 12 digits";
   static const String prefToken ="Token";

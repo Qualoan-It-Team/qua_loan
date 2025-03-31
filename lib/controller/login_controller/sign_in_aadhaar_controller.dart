@@ -56,7 +56,7 @@ class SignInWithAadhaarController extends GetxController {
     String aadhaarNumber = aadhaarController.text;
     isAadhaarValid = true;
     if (aadhaarNumber.isEmpty) {
-      errorMessage = AppStrings.mobileNumberRequired;
+      errorMessage = AppStrings.aadhaarNumberRequired;
       isAadhaarValid = false;
     } else if (aadhaarNumber.length != 12) {
       errorMessage = AppStrings.aadhaarNumber12DigitText;

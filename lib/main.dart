@@ -1,13 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:qualoan/routes/app_routes.dart';
-import 'package:qualoan/view/loan_application/employment_information.dart';
-import 'package:qualoan/view/registration/mobile_number_verification.dart';
-import 'package:qualoan/view/registration/personal_information.dart';
-import 'package:qualoan/view/registration/registration_form.dart';
+
 
 
 
@@ -32,7 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       getPages: MyAppRoutes.pages, 
-      // home: PersonalInformation(),
+      // home: MobileOtpVerification(),
       // home: token != null ? SplashScreen() : SignInWithAadhaarScreen(),
     );
   }

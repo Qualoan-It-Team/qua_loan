@@ -52,7 +52,6 @@ class ViewProfileController extends GetxController {
   Future<void> fetchUserProfile() async {
     try {
        var response = await apiClient.getRequestWithToken(endPoint: EndPoints.localHostGetProfileDetails);
-       print("profile response===${response.body}");
       if (response.statusCode == 200) {
         final Map<String, dynamic> userResponse = json.decode(response.body);
         userProfileResponse = GetProfileDetailsResponse.fromJson(userResponse);
@@ -123,6 +122,7 @@ class ViewProfileController extends GetxController {
   Future<void> previewDocument(String docType, String docId) async {
     try {
       var response = await apiClient.getRequestWithToken( endPoint: "${EndPoints.localHostDocumentPreview}$docType&docId=$docId");
+      print("response===documents${response.body}");
       if (response.statusCode == 200) {
         final Map<String, dynamic> previewResponse = json.decode(response.body);
         String previewUrl = previewResponse['url'];

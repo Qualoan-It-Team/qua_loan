@@ -15,8 +15,6 @@ import 'package:qualoan/reusable_widgets/custom_text.dart';
 class UploadBankStatement extends StatelessWidget {
   UploadBankStatement({super.key});
 
-
-
 final _controller = Get.put(UploadBankStatementController());
 
   @override
@@ -35,7 +33,6 @@ final _controller = Get.put(UploadBankStatementController());
               child:  Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     
                     Center(
                         child: CustomText(
                       textName: "BANK STATEMENT",
@@ -51,11 +48,10 @@ final _controller = Get.put(UploadBankStatementController());
                         contentPadding: EdgeInsets.zero,
                         leading: SvgPicture.asset(
                           AppImages.rightArrow,
-                          
                           height: 40,
                         ),
                         title: CustomText(
-                          textName: "We need your latest 3 months SALARY ACCOUNT bank statement to verify your income.",
+                          textName: "We need your latest 3/6 months SALARY ACCOUNT bank statement to verify your income.",
                           softWrap: true,
                           overflow: TextOverflow.fade,
                           fontSize: 14,   
@@ -79,7 +75,8 @@ final _controller = Get.put(UploadBankStatementController());
                         )),
                     SizedBox(
                       height: Get.height * 0.035,
-                    ),              Center(
+                    ),
+                     Center(
                       child: InkWell(
                         onTap: (){
                           _controller.pickPDF();
@@ -189,7 +186,6 @@ final _controller = Get.put(UploadBankStatementController());
                                       file.path.split('/').last,
                                       style: const TextStyle(fontSize: 10,color: AppColors.grey),
                                       textAlign: TextAlign.center,
-                                      
                                     ),
                                   ),
                                 ],

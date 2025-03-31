@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:qualoan/constants/app_colors.dart';
 import 'package:qualoan/controller/dashboard_controller/dashboard_controller.dart';
+import 'package:qualoan/network/end_points.dart';
 import 'package:qualoan/routes/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,24 +32,20 @@ String? customerLeadId;
     );
 
     if (pickedFiles != null && pickedFiles.files.isNotEmpty) {
-
-      // Get.snackbar(
-      //   snackPosition: SnackPosition.TOP,
-      //   colorText: Colors.white,
-      //   backgroundColor: AppColors.logoRedColor,
-      //   'Retry', 'No files selected. Please try again');
-      if ((pickedFiles.files.length <= 1) || (pickedFiles.files.length <= 3)) {
-          selectedFiles =pickedFiles.files.map((file) => File(file.path!)).toList();
+      // if ((pickedFiles.files.length <= 1) || (pickedFiles.files.length <= 3)) {
+      // if ((pickedFiles.files.length <= 1)) {
+      selectedFiles =pickedFiles.files.map((file) => File(file.path!)).toList();
        isBankStatementlipSelected = false;
        update();
 
-      } else {
-        Get.snackbar(
-          snackPosition: SnackPosition.TOP,
-        colorText: Colors.white,
-        backgroundColor: AppColors.logoRedColor,
-        'Failed', 'You can only select up to 3 PDF files.');
-      }
+      // }
+      //  else {
+      //   Get.snackbar(
+      //     snackPosition: SnackPosition.TOP,
+      //   colorText: Colors.white,
+      //   backgroundColor: AppColors.logoRedColor,
+      //   'Failed', 'You can only select up to 3 PDF files.');
+      // }
     } 
     else {
       Get.snackbar(
@@ -72,7 +69,7 @@ Future<void> uploadBankStatements() async {
 
     isLoading = true;
     update();
-    const url = 'https://api.qualoan.com/api/user/uploadDocuments';
+    var url = EndPoints.localHostUploadDocuments;
     String? token = await getToken(); 
     var request = http.MultipartRequest('PATCH', Uri.parse(url));
     request.headers.addAll({

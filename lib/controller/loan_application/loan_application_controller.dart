@@ -43,7 +43,8 @@ class LoanApplicationController extends GetxController {
   }
 
    Future<void> fetchDashboardDetails() async {
-  const String url = 'https://api.qualoan.com/api/user/getDashboardDetails';
+  String url = EndPoints.localHostGetDashboardDetails;
+  
   String? token = await getToken();
   isLoading = true;
   update();

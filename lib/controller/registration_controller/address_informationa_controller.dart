@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:qualoan/constants/app_colors.dart';
 import 'package:qualoan/controller/dashboard_controller/dashboard_controller.dart';
 import 'package:qualoan/controller/loan_application/view_profile_controller.dart';
+import 'package:qualoan/network/end_points.dart';
 import 'dart:convert';
 import 'package:qualoan/view/dashboard/dashboard_screen.dart';
 import 'package:http/http.dart' as http;
@@ -168,8 +169,7 @@ void onInit() {
 
   ///addressinfo api
   Future<void> updateAddress() async {
-    // const String url = 'https://qualoan-staging.onrender.com/api/user/currentResidence';
-    const String url = 'https://api.qualoan.com/api/user/currentResidence';
+    String url = EndPoints.localHostCurrentResidence;
     String? token = await getToken();
     final Map<String, dynamic> body = {
       "address": addressController.text,
@@ -196,8 +196,6 @@ void onInit() {
       );
       isLoading = false;
       update();
-      print("response${response.body}");
-      print("response${response.statusCode}");
       if (response.statusCode == 200) {
        Get.snackbar(
            backgroundColor: AppColors.black,
@@ -212,7 +210,7 @@ void onInit() {
     } catch (e) {
        isLoading=false;
     update();
-      Get.snackbar("Error", "An error occurred: $e");
+      Get.snackbar(AppStrings.error, "${AppStrings.errorOccured} $e");
     }
   }
 

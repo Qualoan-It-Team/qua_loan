@@ -8,6 +8,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:qualoan/constants/app_colors.dart';
 import 'package:qualoan/constants/app_strings.dart';
 import 'package:qualoan/controller/dashboard_controller/dashboard_controller.dart';
+import 'package:qualoan/network/end_points.dart';
 import 'package:qualoan/reusable_widgets/custom_success_dialog.dart';
 import 'package:qualoan/view/dashboard/dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,10 +38,8 @@ class UploadSelfieController extends GetxController {
 
   Future<void> uploadProfilePicture() async {
   if (selfieImage == null) return;
+  var url = EndPoints.localHostUploadProfile; 
 
-  // isLoading = true;
-  // update();
-  const url = 'https://api.qualoan.com/api/user/uploadProfile'; 
   String? token = await getToken();
   var request = http.MultipartRequest('PATCH', Uri.parse(url));
   request.headers.addAll({

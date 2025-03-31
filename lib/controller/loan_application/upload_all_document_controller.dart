@@ -93,9 +93,10 @@ bool areDocumentsFetched = false;
   isLoading = true;
   update();
   String? token = await getToken(); 
+  String url = EndPoints.localHostUploadDocuments;
   var request = http.MultipartRequest(
     'PATCH',
-    Uri.parse('https://api.qualoan.com/api/user/uploadDocuments'));
+    Uri.parse(url));
      request.headers.addAll({
       'Authorization': 'Bearer $token',
     });
@@ -208,10 +209,14 @@ Future<void> fetchDocumentList() async {
 
       // Check if only bank statements are present
       hasOnlyBankStatements = salarySlips.isEmpty && aadhaarFront.isEmpty && aadhaarBack.isEmpty && pancardList.isEmpty;
-      
+      salarySlips.clear();
+      aadhaarFront.clear();
+      aadhaarBack.clear();
+      pancardList.clear();
+      otherDocuments.clear();
       update();
     } else {
-      hasDocuments = false; // No documents found
+      hasDocuments = false;
       
     }
   } catch (e) {
@@ -219,81 +224,10 @@ Future<void> fetchDocumentList() async {
     update();
   }
 }
-// Future<void> fetchDocumentList() async {
-//   try {
-//     isLoading = true;
-//     update();
-//     var response = await apiClient.getRequestWithToken(endPoint: EndPoints.localHostGetDocumentList);
-//     isLoading = false;
-//     update();
-    
-//     if (response.statusCode == 200) {
-//       final Map<String, dynamic> documentResponse = json.decode(response.body);
-//       List<dynamic> documents = documentResponse['documents'];
 
-//       // Reset document lists
-//       salarySlips.clear();
-//       aadhaarFront.clear();
-//       aadhaarBack.clear();
-//       pancardList.clear();
-//       otherDocuments.clear();
-
-//       // Check for specific documents
-//       for (var doc in documents) {
-//         switch (doc['type']) {
-//           case 'salarySlip':
-//             salarySlips.add(doc['url']);
-//             break;
-//           case 'aadhaarFront':
-//             aadhaarFront.add(doc['url']);
-//             break;
-//           case 'aadhaarBack':
-//             aadhaarBack.add(doc['url']);
-//             break;
-//           case 'panCard':
-//             pancardList.add(doc['url']);
-//             break;
-//           case 'otherDocuments':
-//             // Assuming bank statements are considered as "other documents"
-//             otherDocuments.add(doc['url']);
-//             break;
-//         }
-//       }
-
-//       // Determine if the user has documents
-//       hasDocuments = documents.isNotEmpty;
-
-//       // Check if only bank statements are present
-//       if (salarySlips.isEmpty && aadhaarFront.isEmpty && aadhaarBack.isEmpty && pancardList.isEmpty) {
-      
-//         // User has only bank statements
-//         // You can set a flag or state to indicate this scenario
-//         // For example:
-//         hasOnlyBankStatements = true;
-         
-//       otherDocuments.clear();
-//       update(); // You need to define this variable
-//       } else {
-//         hasOnlyBankStatements = false;
-//         salarySlips.clear();
-//       aadhaarFront.clear();
-//       aadhaarBack.clear();
-//       pancardList.clear();
-//       update();
-       
-//       }
-
-//       update();
-//     } else {
-//       hasDocuments = false; // No documents found
-//     }
-//   } catch (e) {
-//     isLoading = false;
-//     update();
-//   }
-// }
-
-
-
-
+@override
+  void onReady() {
+    fetchDocumentList();
+    super.onReady();
+  }
 }

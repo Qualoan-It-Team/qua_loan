@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:qualoan/constants/app_strings.dart';
 import 'package:qualoan/controller/dashboard_controller/dashboard_controller.dart';
 import 'package:qualoan/controller/loan_application/loan_application_controller.dart';
+import 'package:qualoan/network/end_points.dart';
 import 'package:qualoan/routes/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/app_colors.dart';
@@ -47,6 +48,7 @@ class EmploymentInformationController extends GetxController {
   @override
   void onInit() {
    resetErrors();
+   fetchLoanApplicationDetails();
    update();
     super.onInit();
   }
@@ -233,7 +235,7 @@ Future<String?> getToken() async {
  Future<void> submitEmploymentDetails() async {
   isLoading=true;
   update();
-    const String url = 'https://api.qualoan.com/api/user/addEmploymentInfo';
+    String url = EndPoints.localHostAddEmploymentInfo;
     String? token = await getToken();
     pincode =pincodeControllers.map((controller) => controller.text).join('');
     final Map<String, dynamic> requestBody = {
@@ -307,12 +309,21 @@ void onReady() {
     cityNameController.text = Get.find<LoanApplicationController>().loanApplicationResponse!.data!.employeeDetails!.city.toString();
     stateNameController.text = Get.find<LoanApplicationController>().loanApplicationResponse!.data!.employeeDetails!.state.toString();
     officeLandmarkController.text = Get.find<LoanApplicationController>().loanApplicationResponse!.data!.employeeDetails!.landmark.toString();
-    employedSinceController.text = Get.find<LoanApplicationController>().loanApplicationResponse!.data!.employeeDetails!.employedSince.toString();
+    // employedSinceController.text = Get.find<LoanApplicationController>().loanApplicationResponse!.data!.employeeDetails!.employedSince.toString();
+   
+    String? employedSinceDate =Get.find<LoanApplicationController>().loanApplicationResponse!.data!.employeeDetails!.employedSince.toString();
+     if (employedSinceDate != null) {
+        DateTime dateTime = DateTime.parse(employedSinceDate);
+        employedSinceController.text = DateFormat('yyyy/MM/dd').format(dateTime);
+      } else {
+        employedSinceController.text = '';
+      }
     pincode = Get.find<LoanApplicationController>().loanApplicationResponse!.data!.employeeDetails!.pincode.toString();
     for (int i = 0; i < pincode!.length; i++) {
         pincodeControllers[i].text = pincode![i];
       }
     selectedWorkingType = Get.find<LoanApplicationController>().loanApplicationResponse!.data!.employeeDetails!.workFrom;
+    print("value== ${companyNameController.text} ${companyTypeController.text} ${officialEmailController.text} ${designationController.text} ${officeAddressController.text} ${employedSinceController.text},");
     isUpdated = true;
     update();
   }

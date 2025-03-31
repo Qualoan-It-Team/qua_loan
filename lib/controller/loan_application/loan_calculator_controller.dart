@@ -10,6 +10,7 @@ import 'package:qualoan/controller/loan_application/loan_application_controller.
 import 'package:qualoan/controller/loan_application/view_profile_controller.dart';
 import 'package:qualoan/model/response_model/loan_application_details_response.dart';
 import 'package:qualoan/network/api/api_clients.dart';
+import 'package:qualoan/network/end_points.dart';
 import 'package:qualoan/routes/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -53,6 +54,7 @@ class LoanCalculatorController extends GetxController {
     interestRateController.text = interestRate.toStringAsFixed(1);
     loanAmountController.addListener(() {
       String input = loanAmountController.text;
+      loanAmountError=null;
       if (input.isNotEmpty) {
         int enteredValue = int.tryParse(input) ?? 0;
         if (enteredValue > maxLoanAmount) {
@@ -121,13 +123,16 @@ class LoanCalculatorController extends GetxController {
   void resetError() {
     loanPurposeError = null;
     remarksError = null;
+    loanAmountError=null;
     update();
   }
 
   //validation for loan purpose dropdown
   void validateFields() {
+    loanAmountError=null;
     loanPurposeError = null;
     remarksError = null;
+    update();
     if (selectedLoanPurposeType == null) {
       loanPurposeError = "Select loan purpose";
     } else if (selectedLoanPurposeType == "OTHERS") {
@@ -138,6 +143,10 @@ class LoanCalculatorController extends GetxController {
         remarksError = null;
       }
     }
+    if (initialLoanAmount * 1000 > maxLoanAmount) {
+    loanAmountError = "You can fill only up to 40% of your salary.";
+    update();
+  }
     update();
   }
 
@@ -162,7 +171,7 @@ class LoanCalculatorController extends GetxController {
     update();
     isUpdated = false;
     update();
-    const String url = 'https://api.qualoan.com/api/user/applyLoan';
+    String url = EndPoints.localHostApplyLoan;
     String? token = await getToken();
     //40% salary
     // final int principal = (double.tryParse(salaryAmount!) ?? 0.0 * 0.4).round();
@@ -219,6 +228,7 @@ class LoanCalculatorController extends GetxController {
   void onReady() {
     super.onReady();
     fetchLoanAmount();
+    // validateFields();
     fetchLoanApplicationDetails();
   }
 
@@ -252,6 +262,7 @@ class LoanCalculatorController extends GetxController {
     salaryAmount = profileResponse.userProfileResponse!.data.incomeDetails!.monthlyIncome.toString();
     double salary = double.tryParse(salaryAmount!) ?? 0.0;
     maxLoanAmount = salary * 0.4;
+    // validateFields();
     update();
   }
 }

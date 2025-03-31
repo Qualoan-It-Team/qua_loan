@@ -164,7 +164,7 @@ class LoanCalculator extends StatelessWidget {
                                           _controller.selectedLoanPurposeType =
                                               newValue;
                                           // old but right code
-                                             if (newValue != null) {
+                                          if (newValue != null) {
                                             _controller.loanPurposeError = null;
                                           }
                                           //new code
@@ -203,8 +203,8 @@ class LoanCalculator extends StatelessWidget {
                                       ),
                                     ),
                                   if (_controller.selectedLoanPurposeType ==
-                                      "OTHERS") 
-                                      // ...[
+                                      "OTHERS")
+                                    // ...[
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           left: 5, right: 5),
@@ -221,13 +221,13 @@ class LoanCalculator extends StatelessWidget {
                                             Colors.white.withOpacity(0.8),
                                         hintText: "Add Remarks:",
                                         onChanged: (value) {
-                                           _controller.validateFields();
+                                          _controller.validateFields();
                                           _controller.update();
                                         },
                                       ),
                                     ),
                                   // ],
-                              
+
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 16.0, top: 25),
@@ -459,17 +459,38 @@ class LoanCalculator extends StatelessWidget {
                                         : CustomButton(
                                             onPressed: () {
                                               _controller.validateFields();
+                                              // Check for all validation errors
                                               if (_controller
-                                                      .loanPurposeError ==
-                                                  null) {
+                                                          .loanPurposeError ==
+                                                      null &&
+                                                  _controller.loanAmountError ==
+                                                      null) {
                                                 _controller.applyForLoan();
                                               } else {
-                                                showCustomSnackbar("Error",
-                                                    "select loan purpuse before",
+                                                // Show appropriate error message
+                                                String errorMessage = _controller
+                                                        .loanPurposeError ??
+                                                    _controller
+                                                        .loanAmountError ??
+                                                    "Please fix the errors.";
+                                                showCustomSnackbar(
+                                                    "Error", errorMessage,
                                                     backgroundColor:
                                                         AppColors.logoRedColor,
                                                     textColor: AppColors.white);
                                               }
+                                              // _controller.validateFields();
+                                              // if (_controller
+                                              //         .loanPurposeError ==
+                                              //     null) {
+                                              //   _controller.applyForLoan();
+                                              // } else {
+                                              //   showCustomSnackbar("Error",
+                                              //       "select loan purpuse before",
+                                              //       backgroundColor:
+                                              //           AppColors.logoRedColor,
+                                              //       textColor: AppColors.white);
+                                              // }
                                             },
                                             textName: _controller.isUpdated
                                                 ? "Update"

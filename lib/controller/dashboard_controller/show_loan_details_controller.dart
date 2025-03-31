@@ -55,7 +55,6 @@ String formatDate(DateTime date) {
       final showLoanStatusResponse = jsonDecode(response.body);
       isLoading = false;
       update();
-      print("loan details response===?${response.body}");
       if (response.statusCode == 200) {
         showLoanDetailsResponse =ShowLoanDetailsResponse.fromJson(showLoanStatusResponse);
         update();
@@ -79,8 +78,7 @@ Future<String?> getToken() async {
 //THIS METHOD FOR PAYNOW API
   Future<void> payNowApiMethod( String loanNumber) async {
     try {
-    // // const String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YWRjNWU5NmU3Mzk5YzQyZjJkODA1MCIsImlhdCI6MTczOTg2MjMwNiwiZXhwIjoxNzQyNDU0MzA2fQ.zPedqZuvi9A_fFwLUTVTRxlZHyEG2DNPl4w4zpzB1GE';
-        const String url ='https://api.qualoan.com/api/user/payNow';
+        String url = EndPoints.localHostLoanPaynow;
          String? token = await getToken();
      final response = await http.post(
         Uri.parse(url),

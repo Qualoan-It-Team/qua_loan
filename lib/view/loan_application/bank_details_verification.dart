@@ -121,7 +121,7 @@ class BankDetailsVerification extends StatelessWidget {
                                 inputFormatters: [
                                   FilteringTextInputFormatter(RegExp("[0-9]"),
                                       allow: true),
-                                      LengthLimitingTextInputFormatter(14),
+                                      LengthLimitingTextInputFormatter(20),
                                 ],
                                 keyboardType: TextInputType.number,
                                 prefixIcon: Padding(
@@ -155,7 +155,7 @@ class BankDetailsVerification extends StatelessWidget {
                                 inputFormatters: [
                                   FilteringTextInputFormatter(RegExp("[0-9]"),
                                       allow: true),
-                                      LengthLimitingTextInputFormatter(14),
+                                      LengthLimitingTextInputFormatter(20),
                                 ],
                                 keyboardType: TextInputType.number,
                                 prefixIcon: Padding(
